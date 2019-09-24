@@ -32,4 +32,21 @@ myRectangle.strokeWidth = 10
 -- set the colour of the rectangle
 myRectangle:setFillColor(0.8, 0.2, 0.3)
 
-myRectangle:setStrokeColor(0.4, 0.3, 0.8)
+myRectangle:setStrokeColor(0, 0, 0)
+
+-- calculate the area 
+areaOfRectangle = widthOfRectangle * heightOfRectangle
+
+-- write the area on the screen. Take into consideration the size of the font when positioning it on the screen
+areaText = display.newText("The area of this rectangle with the width of \n" ..
+    widthOfRectangle .. " and a height of " .. heightOfRectangle .. " is " ..
+    areaOfRectangle .. " pixels².", 0, 0, Arial, textsize) 
+
+-- anchor the text and set its (x,y) position
+araeText.anchorX = 0
+areaText.anchorY = 0
+araeText.x = 20
+areaText.y = display.contentHeight/2
+
+-- set the colour of the newText
+areaText:setTextcolor(1, 1, 1)
