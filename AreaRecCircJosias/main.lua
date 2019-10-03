@@ -5,7 +5,7 @@
 
 -- create my local variable 
 local areaText
-local textSize = 50
+local textSize = 300
 local myRectangle
 local widthOfRectangle = 350
 local heightOfRectangle = 200
@@ -40,13 +40,13 @@ areaOfRectangle = widthOfRectangle * heightOfRectangle
 -- write the area on the screen. Take into consideration the size of the font when positioning it on the screen
 areaText = display.newText("The area of this rectangle with the width of \n" ..
     widthOfRectangle .. " and a height of " .. heightOfRectangle .. " is " ..
-    areaOfRectangle .. " pixels².", 0, 0, Arial, textsize) 
+    areaOfRectangle .. " pixels².", 0, 0, Arial, 40)  
 
 -- anchor the text and set its (x,y) position
-araeText.anchorX = 0
+areaText.anchorX = 0
 areaText.anchorY = 0
-araeText.x = 20
+areaText.x = 20
 areaText.y = display.contentHeight/2
 
--- set the colour of the newText
-areaText:setTextcolor(1, 1, 1)
+-- set the color of the newText
+areaText:setTextColor(0, 0, 0)
