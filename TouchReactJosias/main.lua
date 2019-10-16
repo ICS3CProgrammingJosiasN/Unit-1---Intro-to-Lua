@@ -1,7 +1,8 @@
--- Title: TouchAndDrag
+-- Title: TouchReact
 -- Name: Josias
 -- Course: ICS3C
--- This program...
+-- This program displays a blue button on the screen when the user clicks on the button
+-- it disappears and the red button appears in its place the word clicked in a different colour appears.
 
 --hide the status bar
 display.setStatusBar(display.HiddenStatusBar)

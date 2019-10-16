@@ -25,6 +25,19 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctAnswer
+local points = 0
+
+-- variables for the timer
+local totalSeconds = 5
+local secondsLeft = 5
+local clockText
+local countDownTimer
+
+local lives = 4
+local heart1
+local heart2
+local heart3
+local heart4
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 -- LOCAL FUNCTIONS
@@ -75,7 +88,15 @@ local function NumericFieldListener( event )
          else
              print ("*****testing")
              incorrectObject.isVisible = true 
-             timer.performWithDelay(2000, Hideincorrect) 
+             timer.performWithDelay(2000, Hideincorrect)
+
+         if (userAnswer == correctAnser) then
+            -- give a point if user gets the correct answer
+            points = points + 1
+
+            -- update it in the display object
+            pointsText.text = "Points = " .. points    
+
 
 
 
@@ -84,6 +105,44 @@ local function NumericFieldListener( event )
      end
      
 end
+
+local function UpdateTime()
+	-- decrement the number of sceonds 
+	secondsLeft = secondsLeft - 1
+
+	-- display the number of seconds left in the clock object 
+	clockText.text = secondsleft .. ""
+
+	if (secondsleft == 0 ) then 
+		-- reset the number of seconds left 
+		secondsLeft = totalSeconds
+		lives = lives - 1
+
+		-- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, AND SHOW A YOU LOSE IIMAGE
+		-- AND CANCEL THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE 
+		if (lives == 3) then
+			heart4.isVisible = false
+
+		else if (lives == 2) then
+			heart2.isVisible = false
+
+		else if (lives == 1) then 
+			heart1.isVisible = false 
+		end 
+		
+		-- *** CALL THE FUNCTION TO ASK A NEW QUESTION
+	end
+end
+
+-- function that calls the timer 
+local function StartTimer()
+	-- create a countdown timer that loops infinitely 
+	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
+end	
+
+
+
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --OBJECT CREATION
@@ -107,6 +166,12 @@ numericField.inputType = "number"
 
 -- add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener)
+
+-- display the amount of points as text object
+pointsText = display.newText("Points = " .. points, display.contentWidth/3, display.contentHeight/3, nil,50)
+
+-- create the lives to display ont the screen 
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTION CALLS
