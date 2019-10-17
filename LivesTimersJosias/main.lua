@@ -85,17 +85,18 @@ local function NumericFieldListener( event )
             print ("*****testing")
          	correctObject.isVisible = true
          	timer.performWithDelay(2000, HideCorrect)
-         else
-             print ("*****testing")
-             incorrectObject.isVisible = true 
-             timer.performWithDelay(2000, Hideincorrect)
-
-         if (userAnswer == correctAnser) then
+            
             -- give a point if user gets the correct answer
             points = points + 1
 
             -- update it in the display object
-            pointsText.text = "Points = " .. points    
+            pointsText.text = "Points = " .. points
+
+         else
+             print ("*****testing")
+             incorrectObject.isVisible = true 
+             timer.performWithDelay(2000, Hideincorrect)
+                
 
 
 
@@ -123,10 +124,10 @@ local function UpdateTime()
 		if (lives == 3) then
 			heart4.isVisible = false
 
-		else if (lives == 2) then
+		elseif (lives == 2) then
 			heart2.isVisible = false
 
-		else if (lives == 1) then 
+		elseif (lives == 1) then 
 			heart1.isVisible = false 
 		end 
 		
@@ -171,7 +172,9 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 pointsText = display.newText("Points = " .. points, display.contentWidth/3, display.contentHeight/3, nil,50)
 
 -- create the lives to display ont the screen 
-
+heart1 = display.newImageRect("Images/heart.png", 100, 100)
+heart1.x = display.contentWidth  * 7/8
+heart1.y = display.contentHeight * 1/7
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTION CALLS
