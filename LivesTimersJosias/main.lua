@@ -18,6 +18,7 @@ display.setDefault("background", 124/255, 249/255, 199/255)
 
 -- create local variables 
 local questionObject
+local randomquestionObject
 local correctObject
 local incorrectObject
 local numericField
