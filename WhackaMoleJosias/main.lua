@@ -1,7 +1,7 @@
------------------------------------------------------------------------------------------
---
--- main.lua
---
------------------------------------------------------------------------------------------
+-- Title: WhackAMole
+-- Name: Your Name
+-- Course: ICS2O/3C
+-- This program...
 
--- Your code here
+-- Creating Background
+display.newImageRect("Images/")
