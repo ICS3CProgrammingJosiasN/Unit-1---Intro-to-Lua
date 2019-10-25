@@ -1,4 +1,4 @@
--- Title: NumericTextFields
+	-- Title: NumericTextFields
 -- Name: Josias
 -- Course: ICS3C
 -- This program displays a math question and asks the user to answer in a numeric textfield 
@@ -39,8 +39,8 @@ local wrongSound = audio.loadSound( "Sounds/wrongSound.mp3" )
 local wrongSoundChannel
 
 -- variables for the timer
-local totalSeconds = 15
-local secondsLeft = 15
+local totalSeconds = 10
+local secondsLeft = 10
 local clockText
 local countDownTimer
 
@@ -67,7 +67,7 @@ local function AskQuestion()
 
 		questionObject.text = randomNumber1 .. "+".. randomNumber2 .."="
 
-    elseif (randomOperator == 2) then 
+  	elseif (randomOperator == 2) then 
 
     	if (randomNumber1 < randomNumber2)then
     		tempRandomNumber = randomNumber1
@@ -79,18 +79,17 @@ local function AskQuestion()
 
     	questionObject.text = randomNumber1 .. "-".. randomNumber2 .."="
 
-    elseif (randomOperator == 3) then
+  	elseif (randomOperator == 3) then
     	correctAnswer = randomNumber1 * randomNumber2 
     	
     	questionObject.text = randomNumber1 .. "*".. randomNumber2 .."="
 
-    elseif (randomOperator == 4) then
+ 	elseif (randomOperator == 4) then
     	correctAnswer1 = randomNumber1 * randomNumber2
-    	correctAnswer = correctAnswer1 / randomNumber1
+   	 	correctAnswer = correctAnswer1 / randomNumber1
     	questionObject.text = correctAnswer1 .."/" .. randomNumber1 .. "="
 
-    end	
-
+  	end	
 
 end	
 
@@ -109,80 +108,83 @@ local function NumericFieldListener( event )
      -- User begins editing "numericfield"
     if ( event.phase == "began" ) then 
 
-        --clear the text field 
-        event.target.text = ""
+      	--clear the text field 
+      	event.target.text = ""
 
     elseif (event.phase == "submitted") then 
 
-         -- when the answer is sumbmitted (enter key is pressed) set the user input to user's answer
-         userAnswer = tonumber(event.target.text)
-         print ("*****testing")
+      	-- when the answer is sumbmitted (enter key is pressed) set the user input to user's answer
+      	userAnswer = tonumber(event.target.text)
+      	print ("*****testing")
 
-         --if the users answer and the correct answer are the same :
-        if (userAnswer == correctAnswer) then
+      	--if the users answer and the correct answer are the same :
+      	if (userAnswer == correctAnswer) then
          	
-            print ("*****testing")
-         	correctObject.isVisible = true
+        	secondsLeft = totalSeconds
+        	correctObject.isVisible = true
 
-          correctSoundChannel = audio.play(correctSound)
-
-         	timer.performWithDelay(2000, HideCorrect)
+        	correctSoundChannel = audio.play(correctSound)
+        	timer.performWithDelay(2000, HideCorrect)
             
-            -- give a point if user gets the correct answer
-            points = points + 1
+        	-- give a point if user gets the correct answer
+        	points = points + 1
 
-            -- update it in the display object
-            pointsText.text = "Points = " .. points 
-            -- clear Text 
-            event.target.text = ""
+        	-- update it in the display object
+        	pointsText.text = "Points = " .. points 
+        	-- clear Text 
+        	event.target.text = ""
+
+       		if ( points == 5 ) then 
+      			youWin = display.newImageRect("Images/you win.png", 1304, 769)
+      			youWin.x = display.contentCenterX
+      			youWin.y = display.contentCenterY
+      			numericField.isVisible = false 
+      			clockText.isVisible = false
+    		end
 
 
 
-        else
-          lives = lives - 1
-          print ("*****testing")
-          incorrectObject.isVisible = true 
+     	else
+        	lives = lives - 1
+        	secondsLeft = totalSeconds
+        	print ("*****testing")
+        	incorrectObject.isVisible = true 
 
-          wrongSoundChannel = audio.play(wrongSound)
+        	wrongSoundChannel = audio.play(wrongSound)
 
-          timer.performWithDelay(2000, Hideincorrect)
+        	timer.performWithDelay(2000, Hideincorrect)
 
-            if (lives == 3) then
-              	heart4.isVisible = false
+        	if (lives == 3) then
+          		heart4.isVisible = false
              
-            elseif (lives == 2) then
+        	elseif (lives == 2) then
 				heart3.isVisible = false
 
-		    elseif (lives == 1) then
-			 	heart2.isVisible = false
+			elseif (lives == 1) then
+				heart2.isVisible = false
 
-		    elseif (lives == 0) then 
+			elseif (lives == 0) then 
 				heart1.isVisible = false 
-		 	end
+	 		end
 
-		if 
-			( points == 5 ) then 
-		 	youWin = display.newImageRect("Images/you win.png", 1304, 769)
-		 	youWin.x = display.contentCenterX
-		 	youWin.y = display.contentCenterY
-		 	numericField.isVisible = false 
-		end
+		
 
-        if ( lives == 0 ) then 
-        	gameOver = display.newImageRect("Images/game over transparent.png", 1304, 769)
-        	gameOver.x = display.contentCenterX
-        	gameOver.y = display.contentCenterY
-        	numericField.isVisible = false 
-        end 	
+        	if ( lives == 0 ) then 
+        		gameOver = display.newImageRect("Images/game over transparent.png", 1304, 769)
+        		gameOver.x = display.contentCenterX
+        		gameOver.y = display.contentCenterY
+        		numericField.isVisible = false 
+        		clockText.isVisible = false
+        	end 	
 
 
-         -- clear text 
-         event.target.text = ""
+         	-- clear text 
+         	event.target.text = ""
 
 
-         end
+        end
 
-     end
+    end
      
 end
 
@@ -191,23 +193,26 @@ local function UpdateTime()
 	secondsLeft = secondsLeft - 1
 
 	-- display the number of seconds left in the clock object 
-	clockText.text = secondsleft .. ""
+	clockText.text = secondsLeft .. " "
 
-	if (secondsleft == 0 ) then 
+	if (secondsLeft == 0 ) then 
 		-- reset the number of seconds left 
 		secondsLeft = totalSeconds
 		lives = lives - 1
+		wrongSoundChannel = audio.play(wrongSound)
 
 		if (lives == 0 ) then 
-			gameOver = display.newImageRect("Images/gameOver.png", 1304, 769)
+			gameOver = display.newImageRect("Images/game over transparent.png", 1304, 769)
 			gameOver.x = display.contentCenterX
 			gameOver.y = display.contentCenterY
-			numericFeild.isVisible = false 
+			numericField.isVisible = false 
 
 			incorrectObject.isVisible = false 
-			correctAnswerObject.isVisible = true 
+			correctObject.isVisible = false 
             questionObject.isVisible = false 
             numericField.inputType = false 
+            countDownTimer.isVisible = false
+            clockText.isVisible = false
         end    
 
 		-- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, AND SHOW A YOU LOSE IMAGE
@@ -216,10 +221,13 @@ local function UpdateTime()
 			heart4.isVisible = false
 
 		elseif (lives == 2) then
-			heart2.isVisible = false
+			heart3.isVisible = false
 
 		elseif (lives == 1) then 
-			heart1.isVisible = false 
+			heart2.isVisible = false
+
+		elseif (lives == 0) then 
+			heart1.isVisible = false	 
 		end 
 		AskQuestion()
 		
@@ -286,4 +294,7 @@ clockText = display.newText("Time Left= " .. secondsLeft, display.contentWidth*1
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- call the function to ask the question
-AskQuestion()        
+AskQuestion()
+
+-- call the function to start the timer 
+StartTimer()        
