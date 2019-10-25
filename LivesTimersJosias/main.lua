@@ -23,10 +23,16 @@ local incorrectObject
 local numericField
 local randomNumber1
 local randomNumber2
+local randomNumber3
+local randomNumber4
+local tempRandomNumber
 local userAnswer
 local correctAnswer
+local correctAnswer1
 local points = 0
 local randomOperator
+local gameOver
+local youWin
 
 -- variables for the timer
 local totalSeconds = 15
@@ -46,9 +52,9 @@ local heart4
 
 local function AskQuestion()
 	-- generate 2 random numbers between a max. and a min. number
-	randomOperator = math.random(1, 2)
-	randomNumber1 = math.random(0, 10)
-	randomNumber2 = math.random(0, 10)
+	randomOperator = math.random(1, 4)
+	randomNumber1 = math.random(1, 10)
+	randomNumber2 = math.random(1, 10)
 	
 
 	if (randomOperator == 1) then 
@@ -59,9 +65,26 @@ local function AskQuestion()
 
     elseif (randomOperator == 2) then 
 
-    	correctAnswer = randomNumber2 - randomNumber1
+    	if (randomNumber1 < randomNumber2)then
+    		tempRandomNumber = randomNumber1
+    		randomNumber1 = randomNumber2
+    		randomNumber2 = tempRandomNumber
+    	end	
+    	
+    	correctAnswer = randomNumber1 - randomNumber2
 
-    	questionObject.text = randomNumber2 .. "-".. randomNumber1 .."="
+    	questionObject.text = randomNumber1 .. "-".. randomNumber2 .."="
+
+    elseif (randomOperator == 3) then
+    	correctAnswer = randomNumber1 * randomNumber2 
+    	
+    	questionObject.text = randomNumber1 .. "*".. randomNumber2 .."="
+
+    elseif (randomOperator == 4) then
+    	correctAnswer1 = randomNumber1 * randomNumber2
+    	correctAnswer = correctAnswer1 / randomNumber1
+    	questionObject.text = correctAnswer1 .."/" .. randomNumber1 .. "="
+
     end	
 
 
@@ -103,6 +126,8 @@ local function NumericFieldListener( event )
 
             -- update it in the display object
             pointsText.text = "Points = " .. points 
+            -- clear Text 
+            event.target.text = ""
 
         else
           lives = lives - 1
@@ -121,11 +146,26 @@ local function NumericFieldListener( event )
 
 		    elseif (lives == 0) then 
 				heart1.isVisible = false 
-		 	end 
-		  
-                
+		 	end
+
+		if 
+			( points == 5 ) then 
+		 	youWin = display.newImageRect("Images/you win.png", 1304, 769)
+		 	youWin.x = display.contentCenterX
+		 	youWin.y = display.contentCenterY
+		 	numericField.isVisible = false 
+		end
+
+        if ( lives == 0 ) then 
+        	gameOver = display.newImageRect("Images/game over transparent.png", 1304, 769)
+        	gameOver.x = display.contentCenterX
+        	gameOver.y = display.contentCenterY
+        	numericField.isVisible = false 
+        end 	
 
 
+         -- clear text 
+         event.target.text = ""
 
 
          end
@@ -139,14 +179,26 @@ local function UpdateTime()
 	secondsLeft = secondsLeft - 1
 
 	-- display the number of seconds left in the clock object 
-	clockText.text = "Time Left = " .. secondsleft .. ""
+	clockText.text = secondsleft .. ""
 
 	if (secondsleft == 0 ) then 
 		-- reset the number of seconds left 
 		secondsLeft = totalSeconds
 		lives = lives - 1
 
-		-- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, AND SHOW A YOU LOSE IIMAGE
+		if (lives == 0 ) then 
+			gameOver = display.newImageRect("Images/gameOver.png", 1304, 769)
+			gameOver.x = display.contentCenterX
+			gameOver.y = display.contentCenterY
+			numericFeild.isVisible = false 
+
+			incorrectObject.isVisible = false 
+			correctAnswerObject.isVisible = true 
+            questionObject.isVisible = false 
+            numericField.inputType = false 
+        end    
+
+		-- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, AND SHOW A YOU LOSE IMAGE
 		-- AND CANCEL THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE 
 		if (lives == 3) then
 			heart4.isVisible = false
@@ -157,6 +209,7 @@ local function UpdateTime()
 		elseif (lives == 1) then 
 			heart1.isVisible = false 
 		end 
+		AskQuestion()
 		
 		-- *** CALL THE FUNCTION TO ASK A NEW QUESTION
 	end
