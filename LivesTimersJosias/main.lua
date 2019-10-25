@@ -202,6 +202,7 @@ local function UpdateTime()
 		wrongSoundChannel = audio.play(wrongSound)
 
 		if (lives == 0 ) then 
+			timer.cancel(countDownTimer)
 			gameOver = display.newImageRect("Images/game over transparent.png", 1304, 769)
 			gameOver.x = display.contentCenterX
 			gameOver.y = display.contentCenterY
