@@ -56,7 +56,7 @@ local heart4
 
 local function AskQuestion()
 	-- generate 2 random numbers between a max. and a min. number
-	randomOperator = math.random(1, 4)
+	randomOperator = math.random(1, 5)
 	randomNumber1 = math.random(1, 10)
 	randomNumber2 = math.random(1, 10)
 	
@@ -88,6 +88,11 @@ local function AskQuestion()
     	correctAnswer1 = randomNumber1 * randomNumber2
    	 	correctAnswer = correctAnswer1 / randomNumber1
     	questionObject.text = correctAnswer1 .."/" .. randomNumber1 .. "="
+
+    elseif (randomOperator == 5) then
+    	correctAnswer = randomNumber1 * randomNumber1
+   	 	
+    	questionObject.text = randomNumber1 .."²" .. "="	
 
   	end	
 
