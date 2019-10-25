@@ -33,6 +33,10 @@ local points = 0
 local randomOperator
 local gameOver
 local youWin
+local correctSound = audio.loadSound( "Sounds/correctSound.mp3" )
+local correctSoundChannel
+local wrongSound = audio.loadSound( "Sounds/wrongSound.mp3" )
+local wrongSoundChannel
 
 -- variables for the timer
 local totalSeconds = 15
@@ -119,6 +123,9 @@ local function NumericFieldListener( event )
          	
             print ("*****testing")
          	correctObject.isVisible = true
+
+          correctSoundChannel = audio.play(correctSound)
+
          	timer.performWithDelay(2000, HideCorrect)
             
             -- give a point if user gets the correct answer
@@ -129,10 +136,15 @@ local function NumericFieldListener( event )
             -- clear Text 
             event.target.text = ""
 
+
+
         else
           lives = lives - 1
           print ("*****testing")
           incorrectObject.isVisible = true 
+
+          wrongSoundChannel = audio.play(wrongSound)
+
           timer.performWithDelay(2000, Hideincorrect)
 
             if (lives == 3) then
