@@ -145,6 +145,10 @@ local function NumericFieldListener( event )
       			youWin.y = display.contentCenterY
       			numericField.isVisible = false 
       			clockText.isVisible = false
+            heart1.isVisible = false
+            heart2.isVisible = false
+            heart3.isVisible = false 
+            heart4.isVisible = false
     		end
 
 
