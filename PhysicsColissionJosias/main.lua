@@ -12,6 +12,10 @@ local bkg
 local ball1
 local ball2 
 local beam
+local topWall
+local rightWall
+local leftWall
+
 
 --------------------------------------------------------------------------------------------------------------------------------------
 -- Funtion Calls 
@@ -92,6 +96,24 @@ local function secondBall()
 	ball2.yScale = 1.5
 end 
 
+
+topWall = display.newRect(0, 0, display.contentWidth*2, 5)
+rightWall = display.newRect(1024, 0, 5, display.contentHeight*2)
+leftWall = display.newRect(0, 0,  5, display.contentHeight*2)
+
+physics.addBody(topWall, "static", {density=1.0, friction=0.5})
+topWall = display.newRect(0, 0, display.contentWidth*2, 5)
+rightWall = display.newRect(1024, 0, 5, display.contentHeight*2)
+leftwall = display.newRect(0, 0, 5, display.contentHeight*2)
+leftWall = display.newRect(0, 0, 5, display.contentHeight*2)
+
+physics.addBody(topWall, "static", {density=1.0, friction=0.5})
+physics.addBody(rightWall, "static" {density=1.0, friction=0.5})
+physics.addBody(leftWall, "static" {density=1.0, friction=0.5})
+
+topWall.isVisible = false
+rightWall.isVisible = false 
+leftWall.isVisible = false
 -------------------------------------------------------------------------------------------------------------------------------------------
 -- Timee=r delays - call each function after the given millisecond 
 -------------------------------------------------------------------------------------------------------------------------------------------
