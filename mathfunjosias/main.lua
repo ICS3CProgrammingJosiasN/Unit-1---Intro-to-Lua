@@ -145,17 +145,7 @@ local function NumericFieldListener( event )
       			youWin.y = display.contentCenterY
       			numericField.isVisible = false 
       			clockText.isVisible = false
-            heart1.isVisible = false
-            heart2.isVisible = false
-            heart3.isvisible = false
-            heart4.isvisible = false
-            incorrectObject.isVisible = false 
-            correctObject.isVisible = false 
-            questionObject.isVisible = false 
-            numericField.inputType = false 
-            countDownTimer.isVisible = false
-            clockText.isVisible = false
-    		  end
+    		end
 
 
 
@@ -222,10 +212,6 @@ local function UpdateTime()
 			gameOver.x = display.contentCenterX
 			gameOver.y = display.contentCenterY
 			numericField.isVisible = false 
-      heart1.isVisible = false
-      heart2.isVisible = false
-      heart3.isvisible = false
-      heart4.isvisible = false
 
 			incorrectObject.isVisible = false 
 			correctObject.isVisible = false 
