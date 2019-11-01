@@ -1,4 +1,4 @@
-	-- Title: NumericTextFields
+-- Title: NumericTextFields
 -- Name: Josias
 -- Course: ICS3C
 -- This program displays a math question and asks the user to answer in a numeric textfield 
@@ -156,6 +156,9 @@ local function NumericFieldListener( event )
             countDownTimer.isVisible = false
             clockText.isVisible = false
     		  end
+            heart3.isVisible = false 
+            heart4.isVisible = false
+    		end
 
 
 
