@@ -154,10 +154,11 @@ local function NumericFieldListener( event )
             questionObject.isVisible = false 
             numericField.inputType = false 
             countDownTimer.isVisible = false
-            clockText.isVisible = false
-    		  end
+            clockText.isVisible = false            
             heart3.isVisible = false 
             heart4.isVisible = false
+    		  end
+
     		end
 
 
@@ -173,17 +174,14 @@ local function NumericFieldListener( event )
         	timer.performWithDelay(2000, Hideincorrect)
 
         	if (lives == 3) then
-          		heart4.isVisible = false
-             
-        	elseif (lives == 2) then
-				heart3.isVisible = false
-
-			elseif (lives == 1) then
-				heart2.isVisible = false
-
-			elseif (lives == 0) then 
-				heart1.isVisible = false 
-	 		end
+            heart4.isVisible = false
+          elseif (lives == 2) then
+				    heart3.isVisible = false
+          elseif (lives == 1) then
+				    heart2.isVisible = false
+          elseif (lives == 0) then 
+				    heart1.isVisible = false 
+	 		    end
 
 		
 
