@@ -6,6 +6,15 @@
 -- hide the status bar 
 display.setStatusBar(display.HiddenStatusBar)
 
+
+-- local variables
+local backgroundSound
+local backgroundSoundChannel
+
+-- Sound
+local backgroundSound = audio.loadSound( "Sound/bkgMusic.mp3")
+local backgroundSoundChannel
+
 -- global variables
 scrollSpeed = 3
 
@@ -35,6 +44,7 @@ rocketship:scale(-1,1)
 -- Output: none
 -- Description:  This fuction adds the scroll speed to the x-value of the ship
 local function Moveship(event)
+	backgroundSoundChannel = audio.play(backgroundSound)
     -- add the scroll speed to the x-value of the ship
     beetleship.x = beetleship.x + scrollSpeed
     -- change the tansparency of the ship every time it moves so that it fades out 

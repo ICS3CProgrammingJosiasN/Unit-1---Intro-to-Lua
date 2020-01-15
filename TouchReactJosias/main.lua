@@ -10,6 +10,9 @@ display.setStatusBar(display.HiddenStatusBar)
 -- set background colour 
 display.setDefault ("background", 153/255, 204/255, 255/255)
 
+local boingSound = audio.loadSound( "Sounds/BoingSoundEffect.mp3" )
+local boingSoundChannel
+
 -- create blue button, set its position and make it visible
 local blueButton = display.newImageRect("Images/Fast Button Inactive@2x.png",198, 96)
 blueButton.x = display.contentWidth/2
@@ -39,6 +42,7 @@ local function BlueButtonListener(touch)
 		blueButton.isVisible = false
 		redButton.isVisible = true
 		textObject.isVisible = true
+        boingSoundChannel = audio.play(boingSound)
     end
 
     if (touch.phase == "ended") then
@@ -47,6 +51,20 @@ local function BlueButtonListener(touch)
     	textObject.isVisible = false
     end
 end
+local function RedButtonListener(touch)
+    if (touch.phase == "began") then
+        blueButton.isVisible = true
+        redButton.isVisible = false
+        textObject.isVisible = false
+    end
+
+    if (touch.phase == "ended") then
+        blueButton.isVisible = true 
+        redButton.isVisible = false
+        textObject.isVisible = false
+    end
+end
 
 -- add the respective listeners to each object
-blueButton:addEventListener("touch", BlueButtonListener)    	
+blueButton:addEventListener("touch", BlueButtonListener) 
+redButton:addEventListener("touch", RedButtonListener)
